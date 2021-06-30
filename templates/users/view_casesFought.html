@@ -1,0 +1,92 @@
+{% extends 'layout/base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+
+{% block css %}
+<style>
+  .container{
+        padding-top: 20px;
+    }
+  .col-lg-4{
+    padding-bottom: 20px;
+  }  
+  .card{
+      height: 331px;
+      width: 348px;
+  }
+  .card-text{
+      color: black;
+  }
+</style>
+{% endblock css %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row  justify-content-center">
+        <div class="col-l2">
+            <form class="form-inline" action="{% url 'search_fought' %}">
+                <div class="form-group">
+                    <label for="q" class="p-2"><i class="fa fa-search" aria-hidden="true"></i> </label>
+                    <input type="text" name="q" id="q" class="form-control " placeholder="Search Cases by type or name" aria-describedby="qhelp">
+                    <button class="btn btn-sm btn-primary">Search</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        {% for record in page_obj %}
+        <div class="col-lg-4 col-xs-4 my-2">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title"><a href="{% url 'fought' record.id %}">{{record.case}} |  {{record.uploaded_on}}</a></h5><h6></h6>
+                    <p class="card-text">{{record.category}}</p>
+                    <p class="card-text"><b>{{record.user}}</b></p>
+                    <p class='card-text lead'>{{ record.status }}</p>
+                   
+                </div>
+                <div class="card-footer">
+                    <a class="btn btn-primary" href="{% url 'fought' record.id %}"><i class="fa fa-info" aria-hidden="true"></i> View Details</a>
+                </div>
+            </div>
+        </div>
+        
+        
+        {% empty %}
+        <p class="lead">No records found</p>
+        {% endfor %}
+        
+    </div>
+    <div class="row">
+        <div class="col">
+            <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                    {% if page_obj.has_previous %}
+                    <li class="page-item"></li><a class="page-link" href="?page=1">&laquo; first</a></li>
+                    <li class="page-item"></li><a class="page-link" href="?page={{ page_obj.previous_page_number }}">previous</a></li>
+                    {% endif %}
+                    
+                    <li class="page-item active" aria-current="page">
+                        <a class="page-link">
+                            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+                        </a>
+                    </li>
+                    
+                    {% if page_obj.has_next %}
+                    <li class="page-item"></li><a class="page-link" href="?page={{ page_obj.next_page_number }}">next</a></li>
+                    <li class="page-item"></li><a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a></li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
+
+{% block js %}
+
+{% endblock js %}

@@ -1,0 +1,62 @@
+{% extends 'layout/base.html' %}
+
+{% load static %}
+
+{% load crispy_forms_tags %}
+
+{% block css %}
+<style>
+    
+    
+    .row{
+        justify-content: center;
+    align-items: center;
+    }
+    .col-6{
+        padding-top: 20px;
+        padding-bottom: 20px;
+    }
+    .card{
+        background-color: #EE9E81;
+        
+        color: white;
+        
+    }
+    .card-header{
+        
+       display: flex;
+    }
+    .card-body{
+       
+        width: auto;
+        height: auto; 
+    }
+   
+    </style>
+{% endblock css %}
+    
+
+{% block content %}
+
+    <div class="container">
+        <div class="row">
+            <div class="col-6">
+                <form enctype="multipart/form-data" method="post">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4>Add Case Details</h4>
+                        </div>
+                        <div class="card-body">
+                            {% csrf_token %}
+                            {{ casesFoughtForm|crispy }}
+                        </div>
+                        <div class="card-footer text-right">
+                            <button class="btn btn-success">Save</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
+    

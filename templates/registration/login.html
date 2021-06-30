@@ -1,0 +1,116 @@
+{% extends 'layout/base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+
+{% block css %}
+<style>
+    body{
+        
+        background-color: #f1f5f5;
+        margin: 0;
+    }
+    .container{
+        display:inline-block;
+        align-items: center;
+        max-width: 100vw;
+    }
+  
+    .row{
+     display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    flex-direction: row;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    margin-right: 15px;
+    margin-left: 15px;
+    }
+    
+    .login{
+        background-image: url("{% static 'img\wavebg.gif' %}");
+        background-repeat: no-repeat;
+        background-size:cover;
+        height:50%;
+        background-color: #fff;
+        border-radius: 10px;
+    }
+    
+   .card-body {
+       color: #fff;
+   }
+    
+    
+    .card-body .text .small .p{
+        justify-content: center;
+        align-items: center;
+    }
+
+    .card-body .btn{
+        width: 100%;
+        font-size: 15px ;
+        color: #fff;
+    }
+    
+    .card-body .buttn{
+        align-items: center;
+       width: 100%;
+       
+      
+    }
+    .card-title{
+        font-weight: bolder ;
+    }
+    .lead{
+        margin-top: -10px;
+        
+    }
+    .text{
+        color: #fff;
+        padding-top: 20px;
+        display:flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .card-body .form-control{
+        background-color: #fff;
+        opacity: 0.9;
+
+    }
+    
+</style>
+{% endblock css %}
+
+
+{% block content %}
+<div class="container">
+    <div class="row mx-5 my-5">
+     <div class="col-lg-4 login">
+            
+                <div class="card p-2 bg-transparent shadow-0 border-0">
+                    <div class="card-body">
+                        <h3><p class="card-title mt-2 text-center">Login</p></h3>
+                         <h6><p class="lead text-center">Please enter your credentials</p></h6>
+                        <form method="post">
+                            {% csrf_token %}
+                            {{form|crispy}}
+                            <button class="btn btn-success btn-md btn-block">Log in</button>
+                            <div class="text"><small><p>OR</p></small>
+                            </div>
+                            <div class="d-flex justify-content-center">
+                             <a name="register" id="register" class="btn btn-success btn-md btn-block buttn" href="{% url 'register' %}" role="button">Sign Up</a>
+                            </div>
+                            <div class="text"> 
+                             <small><a href="{% url 'password_reset' %}"><p>Forgot password?</small>
+                            </div>
+                        </form>
+                       
+                    </div>
+                    </div>
+                </div>
+           
+        </div>
+    </div>
+</div>
+{% endblock content %}

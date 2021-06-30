@@ -1,0 +1,44 @@
+{% extends 'layout/base.html' %}
+{% load crispy_forms_tags %}
+
+
+{% block css %}
+<style>
+    .con{
+        margin-top: 5%;
+        margin-bottom: 8%;
+    }
+    
+    </style>
+{% endblock css %}
+    
+
+{% block content %}
+
+<div class="container con">
+    <div class="row">
+        <div class="col-md-4 mx-auto">
+            <div class="card text-dark">
+                <img class="card-img-top" src="{{lawyer.pic.url}}" alt="">
+                <div class="card-body">
+                    <h4 class="card-title">{{lawyer.name}}</h4>
+                    <p class="card-text">{{lawyer.email}}</p>
+                </div>
+            </div>
+            <form method="POST" class="card">
+                {% csrf_token %}
+                {{form|crispy}}
+                <button class="btn btn-success btn-md btn-block">Give Rating</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
+
+
+
+
+
+
+
